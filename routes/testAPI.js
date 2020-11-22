@@ -24,7 +24,6 @@ router.get("/fleets", function (req, res, next) {
         );
       })
 
-      debugger
       console.log("Fleets:", fleets);
       res.send(fleetsAdd);
     } catch (err) {
@@ -35,7 +34,6 @@ router.get("/fleets", function (req, res, next) {
 });
 
 router.get("/vessels", function (req, res, next) {
-  debugger;
   fs.readFile("./vessels.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("Error reading vessels file from disk:", err);
@@ -52,9 +50,7 @@ router.get("/vessels", function (req, res, next) {
   });
 });
 
-router.get("/vesselLocations", function (req, res, next) {
-  debugger;
-  
+router.get("/vesselLocations", function (req, res, next) {  
   fs.readFile("./vesselLocations.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("Error reading vesselLocations file from disk:", err);
@@ -73,8 +69,6 @@ router.get("/vesselLocations", function (req, res, next) {
 });
 
 router.get("/fleet/:id", (req, res, next) => {
-  debugger;
-  //res.send('fleet:' + req.params.id);
   fs.readFile("./fleets.json", "utf8", (err, jsonString) => {
     if (err) {
       console.log("Error reading file from disk:", err);
@@ -83,14 +77,12 @@ router.get("/fleet/:id", (req, res, next) => {
     try {
       const fleets = JSON.parse(jsonString);
       console.log("Fleets:", fleets);
-      debugger;
 
       //const fleet = fleets.findById(req.params.id);
       let id = req.params.id;
       let fleetSpec = fleets.map((x) => {
         return x._id == id;
       });
-      debugger;
       if (!fleetSpec)
         return res
           .status(404)
